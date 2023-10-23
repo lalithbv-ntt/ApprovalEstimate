@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 from openpyxl import load_workbook
 import streamlit as st
-import io
+import base64
 
 import warnings
 
@@ -145,6 +145,23 @@ if submit_button:
     wb.save(excel_file)
 
 
-    with open(excel_file, "rb") as f:
-        st.download_button("Download Excel File", f.read(), excel_file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    # with open(excel_file, "rb") as f:
+    #     st.download_button("Download Excel File", f.read(), excel_file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
+    # Read the Excel file and encode it as base64
+    with open(excel_file, "rb") as file:
+        encoded_data = base64.b64encode(file.read()).decode()
+
+    # Create the download link for the Excel file
+    #download_link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{encoded_data}" download={excel_file}>Download Excel File</a>'
+
+    download_link = f"data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{encoded_data}"
+    #st.write(download_link, unsafe_allow_html=True)
+
+    # Display a download button
+    st.markdown(
+        f'<a href="{download_link}" download={excel_file}>'
+        '<button style="padding: 10px 20px; background-color: #008CBA; color: #ffffff; border: none; border-radius: 5px; cursor: pointer;">Download Excel File</button>'
+        '</a>',
+        unsafe_allow_html=True
+    )
