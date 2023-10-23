@@ -9,6 +9,14 @@ import warnings
 # Disable warnings globally
 warnings.filterwarnings("ignore")
 
+# Set Streamlit page configuration
+st.set_page_config(
+    layout="wide",  # Use the full width of the page
+    initial_sidebar_state="auto",  # Automatically show/hide the sidebar based on content
+    page_title="Approval time estimate",  # Title of the app
+    page_icon=":calendar:",  # Icon for the app
+)
+
 st.header(":calendar: Approval time estimate")
 st.write("***")
 
@@ -92,7 +100,7 @@ if submit_button:
 
     image = st.image("Approval Matrix.png", use_column_width=True)
 
-    st.dataframe(df_approval_estimates)
+    st.table(df_approval_estimates)
 
     # Load the Excel file and the specific sheet
     excel_file = "Bid Timeline sample.xlsx"
