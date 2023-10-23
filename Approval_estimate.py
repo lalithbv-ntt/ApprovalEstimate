@@ -21,7 +21,7 @@ st.header(":calendar: Approval time estimate")
 st.write("***")
 
 with st.sidebar:
-    submit_date = st.date_input("Submit date", min_value = datetime.now())
+    submit_date = st.date_input("Submit date", min_value = datetime.now(), format="DD/MM/YYYY")
     gp = st.number_input("GP%", min_value=0.0, step=0.5)
     revenue_size = st.number_input("Revenue", min_value=0, step=50000)
     submit_button = st.button("Submit", key="submit_button")
